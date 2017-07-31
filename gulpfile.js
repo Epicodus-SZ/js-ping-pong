@@ -5,6 +5,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var utilities = require('gulp-util');
 var del = require('del');
+var jshint = require('gulp-jshint');
 var buildProduction = utilities.env.production;
 
 gulp.task('concatInterface', function() {
@@ -38,10 +39,8 @@ gulp.task("build", ['clean'], function() {
     }
 });
 
-// gulp.task('jsBrowserify', function() {
-//     return browserify({ entries: ['./js/pingpong-interface.js'] })
-//         .bundle()
-//         .pipe(source('app.js'))
-//         .pipe(gulp.dest('./build/js'));
-// });
-//more dependencies will be added here.
+gulp.task('jshint', function() {
+    return gulp.src(['js/*.js'])
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));
+});
